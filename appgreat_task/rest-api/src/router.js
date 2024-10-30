@@ -1,4 +1,4 @@
-const nodeArr = [
+const noteArr = [
     {
         id: 1,
         noteName: 'creat rest-api.',
@@ -16,15 +16,19 @@ const router = require('express').Router();
 
 router.get('/note', (req, res) => {
 
-    const data = nodeArr;
+    const data = noteArr;
     res.json(data);
 
 })
 
 router.get('/note/:id', (req, res) => {
 
-    const nodeId = req.params.id;
-    const currentNote = nodeArr.filter((a) => a.id == nodeId);
+    const noteId = req.params.id;
+    const currentNote = noteArr.filter((a) => a.id == noteId);
+    const index = noteArr.indexOf(currentNote[0]);
+    noteArr.splice(index, 1);
+
+
 
     res.json(currentNote)
 
@@ -33,7 +37,8 @@ router.get('/note/:id', (req, res) => {
 router.post('/note', (req, res) => {
 
     const data = req.body;
-    const createNoteId = nodeArr.length + 1;
+    const createNoteId = noteArr.length + 1;
+
 
 
 
@@ -41,16 +46,23 @@ router.post('/note', (req, res) => {
 
 router.put('/note/edit/:id', (req, res) => {
 
-    const nodeId = req.params.id;
+    const noteId = req.params.id;
+    const currentNote = noteArr.filter((a) => a.id == noteId);
+    const index = noteArr.indexOf(currentNote[0]);
 
 
+    res.json({ ok: true });
 
 })
 
 router.delete('/note/delete/:id', (req, res) => {
 
-    const nodeId = req.params.id;
+    const noteId = req.params.id;
+    const currentNote = noteArr.filter((a) => a.id == noteId);
+    const index = noteArr.indexOf(currentNote[0]);
+    noteArr.splice(index, 1);
 
+    res.json({ ok: true });
 })
 
 module.exports = router;
